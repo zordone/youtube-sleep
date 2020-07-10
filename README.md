@@ -48,7 +48,7 @@ fetch(
 When you start watchig YouTube from bed, and you want to make sure the video stops after you fall asleep:
 
 1. Open Chrome developer tools.
-1. Press `command` + `P`.
+1. Press `command` + `P` (or `control` + `P` on Windows).
 1. Start typing `!YouTube Sleep` (or whatever name you gave to the snippet) and press `enter`. You only need to type the first couple characters until it filters down to one snippet.
 1. Close the developer tools.
 
