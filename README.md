@@ -4,7 +4,13 @@ Code snippet to make YouTube go to sleep after a given time period.
 
 Starts a countdown timer on the top right corner of the video. First it's barely visible, but it will turn into a red, blinking warning in the last 30 seconds. If you don't touch your keyboard or mouse before the time runs out, the screen will slowly fade to black, the volume will decrease to zero, then the video will stop.
 
-The main code is hosted on github. You need to add a small code snippet to Chrome to load and run it on demand. The reason for this is to:
+It works in normal, theater and fullscreen mode as well. The timer remains active even if you start watching another video.
+
+There is nothing really YouTube specific in the code, so it should probably work on other video sites as well, although this is not tested.
+
+## How does it work
+
+The main code is hosted on [this github repo](https://github.com/zordone/youtube-sleep). You need to add a small code snippet to your Chrome to load and run it on demand. The reason for this is to:
 
 - Keep the snippet small.
 - Make it easy for you to change the timeout.
