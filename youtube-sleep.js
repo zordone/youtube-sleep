@@ -151,7 +151,7 @@
   init();
   console.log("YoutubeSleep has been loaded.");
   console.log("Call it with the number of minutes:", "youtubeSleep(10)");
-  console.log("Or with zero to deactivate it", "youtubeSleep(10)");
+  console.log("Or with zero to deactivate it", "youtubeSleep(0)");
 
   window.youtubeSleep = (timeoutMinutes) => {
     // falsy to deactivate
