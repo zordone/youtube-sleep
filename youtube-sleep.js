@@ -51,7 +51,7 @@
         right: 0;
         opacity: 0;
         pointer-events: none;
-        background: #000000e6;
+        background: #000000f0;
         z-index: 1001;
         transition: opacity 1s linear;
         font-size: 5rem;
