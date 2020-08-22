@@ -24,9 +24,11 @@
       z-index: 1000;
       border-radius: 0.5rem;
       opacity: 0.2;
+      transition: all 1s ease-in-out;
     }
     .youtube-sleep.warning {
       background: black;
+      font-size: 4rem;
       color: red;
       opacity: 1;
       animation: youtube-sleep-blink 1s infinite;
