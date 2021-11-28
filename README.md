@@ -24,7 +24,7 @@ If you have concerns about running someone else's code on your YouTube, you are 
 
 1. This is the starter script below. Copy it to the clipboard. [What is this sorcery?](#explanation)
    ```
-   javascript:(function()%7B%7Bif(window.youtubeSleep)%7ByoutubeSleep(0)%3ByoutubeSleep%3Dnull%3B%7Delse%7Bconst%20script%3Ddocument.createElement(%22script%22)%3Bscript.text%3Dawait(await%20fetch(%22https%3A%2F%2Fraw.githubusercontent.com%2Fzordone%2Fyoutube-sleep%2Fmaster%2Fyoutube-sleep.js%22)).text()%2B%22youtubeSleep(10)%22%3Bdocument.body.appendChild(script)%3B%7D%7D%7D)()
+   javascript:(async%20function()%7Bif(window.youtubeSleep)%7ByoutubeSleep(0)%3ByoutubeSleep%3Dnull%7Delse%7Bconst%20script%3Ddocument.createElement(%22script%22)%3Bscript.text%3D(await(await%20fetch(%22https%3A%2F%2Fraw.githubusercontent.com%2Fzordone%2Fyoutube-sleep%2Fmaster%2Fyoutube-sleep.js%22)).text())%2B%22youtubeSleep(10)%22%3Bdocument.body.appendChild(script)%3B%7D%7D)()
    ```
 1. Create a new bookmark in your browser, and paste this text into the "URL" field, or "Address" in some browsers.
 1. The default timeout is 10 minutes. If you want to change this, just find `youtubeSleep(10)` in the text and replace the `10` in it.
@@ -46,20 +46,18 @@ Click on the bookmark again to stop it.
 The bookmarklet URL is just the minified and URL encoded version of the starter script below. It just loads the main script and starts it with a 10 minutes timeout. Or if it's already running, stops it.
 
 ```javascript
-{
-  if (window.youtubeSleep) {
-    youtubeSleep(0);
-    youtubeSleep = null;
-  } else {
-    const script = document.createElement("script");
-    script.text =
-      (await (
-        await fetch(
-          "https://raw.githubusercontent.com/zordone/youtube-sleep/master/youtube-sleep.js"
-        )
-      ).text()) + "youtubeSleep(10)";
-    document.body.appendChild(script);
-  }
+if (window.youtubeSleep) {
+  youtubeSleep(0);
+  youtubeSleep = null;
+} else {
+  const script = document.createElement("script");
+  script.text =
+    (await (
+      await fetch(
+        "https://raw.githubusercontent.com/zordone/youtube-sleep/master/youtube-sleep.js"
+      )
+    ).text()) + "youtubeSleep(10)";
+  document.body.appendChild(script);
 }
 ```
 
