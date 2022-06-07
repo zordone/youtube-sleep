@@ -2,7 +2,7 @@
 
 Small script to make YouTube go to sleep after a given time.
 
-Starts a countdown timer on the top right corner of the video. First, it's barely visible, but it will turn into a red, blinking warning in the last 30 seconds. If you don't touch your keyboard or mouse, then in the last 15 seconds, the screen will slowly fade to black, the volume will fade out, and finally, the video will stop.
+Starts a countdown timer on the top right corner of the video. First, it's barely visible, but it will turn into a red, blinking warning in the last 30 seconds. If you touch your keyboard or mouse, or pause and resume from your headphones, the timer will restart. Otherwise, in the last 15 seconds the screen will slowly fade to black, the volume will fade out, and finally, the video will stop.
 
 It works in normal, theater, and fullscreen mode as well. The timer remains active even if you start watching another video, or auto-playing a playlist.
 

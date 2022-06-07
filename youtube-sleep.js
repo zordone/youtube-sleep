@@ -23,7 +23,7 @@
       pointer-events: none;
       z-index: 1000;
       border-radius: 0.5rem;
-      opacity: 0.2;
+      opacity: 0.3;
       transition: all 1s ease-in-out;
     }
     .youtube-sleep.warning {
@@ -34,8 +34,8 @@
       animation: youtube-sleep-blink 1s infinite;
     }
     @keyframes youtube-sleep-blink {
-      0% { opacity: 0; }
-      20% { opacity: 1; }
+      0% { opacity: 0; }
+      20% { opacity: 1; }
       65% { opacity: 1; }
       70% { opacity: 0; }
       95% { opacity: 0; }
@@ -82,6 +82,7 @@
     // keep awake events
     document.addEventListener("mousemove", keepAwake, { passive: true });
     document.addEventListener("keydown", keepAwake, { passive: true });
+    player.addEventListener("play", keepAwake, { passive: true });
     inited = true;
   };
 
@@ -122,11 +123,11 @@
 
   const throttle = (func, time) => {
     let wait = false;
-    return () => {
+    return (...args) => {
       if (wait) {
         return;
       }
-      func();
+      func(...args);
       wait = true;
       setTimeout(() => {
         wait = false;
@@ -144,7 +145,13 @@
     player.volume = originalVolume;
   };
 
-  const keepAwake = throttle(() => {
+  const keepAwake = throttle((event) => {
+    // play event at time zero means a new video started, in which case we don't want to restart the timer
+    const currentTime = event.target?.currentTime;
+    if (currentTime === 0) {
+      return;
+    }
+    // restart the timer
     stop();
     start();
   }, 5000);
@@ -155,6 +162,7 @@
     }
     document.removeEventListener("mousemove", keepAwake);
     document.removeEventListener("keydown", keepAwake);
+    player.removeEventListener("play", keepAwake);
     display.remove();
     cover.remove();
     style.remove();
