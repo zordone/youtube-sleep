@@ -24,7 +24,7 @@ If you have concerns about running someone else's code on your YouTube, you are 
 
 1. This is the starter script below. Copy it to the clipboard. [What is this sorcery?](#explanation)
    ```
-   javascript:(async%20function()%7Bif(window.youtubeSleep)%7ByoutubeSleep(0)%3ByoutubeSleep%3Dnull%7Delse%7Bconst%20script%3Ddocument.createElement(%22script%22)%3Bscript.text%3D(await(await%20fetch(%22https%3A%2F%2Fraw.githubusercontent.com%2Fzordone%2Fyoutube-sleep%2Fmaster%2Fyoutube-sleep.js%22)).text())%2B%22youtubeSleep(10)%22%3Bdocument.body.appendChild(script)%3B%7D%7D)()
+   javascript:(function()%7Bwindow.youtubeSleep%3F(youtubeSleep(0)%2CyoutubeSleep%3Dnull)%3Afetch(%22https%3A%2F%2Fraw.githubusercontent.com%2Fzordone%2Fyoutube-sleep%2Fmaster%2Fyoutube-sleep.js%22).then((e%3D%3Ee.text())).then((e%3D%3E%7Bconst%20t%3DtrustedTypes.createPolicy(%22mypolicy%22%2C%7BcreateScript%3Ae%3D%3Ee%7D)%2Cu%3Ddocument.createElement(%22script%22)%3Bu.text%3Dt.createScript(e%2B%22youtubeSleep(10)%22)%2Cdocument.body.appendChild(u)%7D))%3B%7D)()%3B
    ```
 1. Create a new bookmark in your browser, and paste this text into the "URL" field, or "Address" in some browsers.
 1. The default timeout is 10 minutes. If you want to change this, just find `youtubeSleep(10)` in the text and replace the `10` in it.
@@ -45,19 +45,25 @@ Click on the bookmark again to stop it.
 
 The bookmarklet URL is just the minified and URL encoded version of the starter script below. It just loads the main script and starts it with a 10 minutes timeout. Or if it's already running, stops it.
 
+It has to create a basic trusted type policy to get permission to run our external script.
+
 ```javascript
 if (window.youtubeSleep) {
   youtubeSleep(0);
   youtubeSleep = null;
 } else {
-  const script = document.createElement("script");
-  script.text =
-    (await (
-      await fetch(
-        "https://raw.githubusercontent.com/zordone/youtube-sleep/master/youtube-sleep.js"
-      )
-    ).text()) + "youtubeSleep(10)";
-  document.body.appendChild(script);
+  fetch(
+    "https://raw.githubusercontent.com/zordone/youtube-sleep/master/youtube-sleep.js"
+  )
+    .then((res) => res.text())
+    .then((src) => {
+      const myPolicy = trustedTypes.createPolicy("mypolicy", {
+        createScript: (s) => s,
+      });
+      const script = document.createElement("script");
+      script.text = myPolicy.createScript(src + "youtubeSleep(10)");
+      document.body.appendChild(script);
+    });
 }
 ```
 
