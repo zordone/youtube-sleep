@@ -26,8 +26,12 @@
       opacity: 0.3;
       transition: all 1s ease-in-out;
     }
+    .youtube-sleep.start {
+      font-size: 4rem;
+      opacity: 1;
+      transition: all 0.1s ease-in-out;
+    }
     .youtube-sleep.warning {
-      background: black;
       font-size: 4rem;
       color: red;
       opacity: 1;
@@ -99,6 +103,12 @@
     timeLeft = timeoutSec;
     display.innerText = secsToTime(timeLeft);
     display.classList.remove("warning");
+
+    display.classList.add("start");
+    setTimeout(() => {
+      display.classList.remove("start");
+    }, 1000);
+
     // start new timer
     timerId = setInterval(() => {
       timeLeft -= 1;
